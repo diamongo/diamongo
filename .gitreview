@@ -1,0 +1,7 @@
+[gerrit]
+host=review.gerrithub.io
+port=29419
+project=diamongo/diamongo
+defaultbranch=master
+defaultremote=origin
+
