@@ -1,2 +1,0 @@
-# diamongo
-Diamongo
