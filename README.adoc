@@ -1,0 +1,9 @@
+= Diamongo
+
+Diamongo is the next generation MongoDB migration tool. The project is in very early stages.
+
+Builds will be deployed to Bintray and Maven Central once this makes sense.
+
+'''
+Licensed under the Apache License, Version 2.0 (the "License"),
+http://www.apache.org/licenses/LICENSE-2.0
