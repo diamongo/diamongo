@@ -34,6 +34,8 @@
         <url>https://github.com/diamongo</url>
     </organization>
 
+    <inceptionYear>2017</inceptionYear>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -185,6 +187,15 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.19.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>appassembler-maven-plugin</artifactId>
+                    <version>1.10</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.6</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -399,6 +410,21 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.21</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>io.airlift</groupId>
+                <artifactId>airline</artifactId>
+                <version>0.7</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
@@ -407,6 +433,11 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.6.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jmockit</groupId>
+                <artifactId>jmockit</artifactId>
+                <version>1.30</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
