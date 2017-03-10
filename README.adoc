@@ -4,6 +4,8 @@ Diamongo is the next generation MongoDB migration tool. The project is in very e
 
 Builds will be deployed to Bintray and Maven Central once this makes sense.
 
+image:https://travis-ci.org/diamongo/diamongo.svg?branch=master["Build Status", link="https://travis-ci.org/diamongo/diamongo"]
+
 '''
 Licensed under the Apache License, Version 2.0 (the "License"),
 http://www.apache.org/licenses/LICENSE-2.0
