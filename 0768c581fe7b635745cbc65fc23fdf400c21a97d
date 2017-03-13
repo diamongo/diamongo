@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca3dee19_8d966d50",
+        "filename": "core/src/main/java/io/github/diamongo/core/Diamongo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001909
+      },
+      "writtenOn": "2017-03-13T19:57:13Z",
+      "side": 1,
+      "message": "Javadocs for methods usually use the third person. I\u0027d suggest to follow this practice.\n\nApplies to all methods in the class.",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "0768c581fe7b635745cbc65fc23fdf400c21a97d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
