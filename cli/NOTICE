@@ -11,7 +11,7 @@ Copyright © 2017 The Diamongo authors. All rights reserved.
 From: 'an unknown organization'
   - FindBugs-Annotations (http://findbugs.sourceforge.net/) com.google.code.findbugs:annotations:jar:2.0.3
     License: GNU Lesser Public License  (http://www.gnu.org/licenses/lgpl.html)
-  - Guava: Google Core Libraries for Java (http://code.google.com/p/guava-libraries/guava) com.google.guava:guava:bundle:18.0
+  - Guava: Google Core Libraries for Java (https://github.com/google/guava/guava) com.google.guava:guava:bundle:19.0
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - airline (https://github.com/airlift/airline) io.airlift:airline:jar:0.7
     License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)

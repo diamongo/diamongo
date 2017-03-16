@@ -4,11 +4,13 @@
 // Maven pom organized by organization.
 // ------------------------------------------------------------------
 
-Diamongo Core
+Diamongo Integration Tests
 
 Copyright © 2017 The Diamongo authors. All rights reserved.
 
 From: 'an unknown organization'
+  - Guava: Google Core Libraries for Java (https://github.com/google/guava/guava) com.google.guava:guava:bundle:19.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - BSON (http://bsonspec.org) org.mongodb:bson:jar:3.2.2
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - MongoDB Driver (http://www.mongodb.org) org.mongodb:mongodb-driver:jar:3.2.2
@@ -19,4 +21,5 @@ From: 'an unknown organization'
 From: 'QOS.ch' (http://www.qos.ch)
   - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.21
     License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+
     Copyright © 2017 The Diamongo authors. All rights reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,36 +28,22 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>diamongo-core</artifactId>
+    <artifactId>diamongo-integration-tests</artifactId>
+    <name>Diamongo Integration Tests</name>
     <packaging>jar</packaging>
-    <name>Diamongo Core</name>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!--
-                    Disable annotation processing. Otherwise compilation would fail because the compiler would
-                    try to perform annotation processing while the processor itself is not even compiled yet.
-                    -->
-                    <fork>true</fork>
-                    <compilerArgs>
-                        <arg>-proc:none</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>diamongo-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
