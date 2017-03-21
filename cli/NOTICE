@@ -17,6 +17,12 @@ From: 'an unknown organization'
     License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
   - javax.inject (http://code.google.com/p/atinject/) javax.inject:javax.inject:jar:1
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - BSON (http://bsonspec.org) org.mongodb:bson:jar:3.2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - MongoDB Driver (http://www.mongodb.org) org.mongodb:mongodb-driver:jar:3.2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - MongoDB Java Driver Core (http://www.mongodb.org) org.mongodb:mongodb-driver-core:jar:3.2.2
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 From: 'QOS.ch' (http://www.qos.ch)
   - Logback Classic Module (http://logback.qos.ch/logback-classic) ch.qos.logback:logback-classic:jar:1.1.7
@@ -27,4 +33,5 @@ From: 'QOS.ch' (http://www.qos.ch)
     License: GNU Lesser General Public License  (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
   - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.21
     License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+
 

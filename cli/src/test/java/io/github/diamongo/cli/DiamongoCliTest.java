@@ -45,7 +45,7 @@ public class DiamongoCliTest {
     @Parameters
     public static Collection<Object[]> data() {
         return asList(new Object[][] {
-                {"validate", ValidateCommand.class},
+                {"validate", ValidateCommand.class },
                 {"status", StatusCommand.class},
                 {"migrate", MigrateCommand.class},
                 {"clear", ClearCommand.class}
@@ -59,13 +59,13 @@ public class DiamongoCliTest {
 
         new Expectations(commandClass) {};
 
-        DiamongoCli.main(commandName);
+        DiamongoCli.main(commandName, "--url", "mongodb://foo", "--migrations", "bar");
 
         new VerificationsInOrder() {
             {
                 mockLogger.debug(withSubstring("Executing"), withInstanceOf(commandClass));
                 command.run();
-                mockLogger.info(commandName);
+                mockLogger.debug("Invoking command: {}", commandName);
                 mockLogger.debug(withSubstring("Finished"), withInstanceOf(commandClass));
             }
         };

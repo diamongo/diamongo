@@ -19,7 +19,13 @@ package io.github.diamongo.core;
 /**
  * Entrypoint for Diamongo.
  */
-public class Diamongo {
+public final class Diamongo {
+    private final DiamongoConfig config;
+
+    public Diamongo(DiamongoConfig config) {
+        this.config = config;
+    }
+
     /**
      * Starts the database migration.
      */
