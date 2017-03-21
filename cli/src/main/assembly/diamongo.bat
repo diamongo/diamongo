@@ -1,24 +1,18 @@
 @REM
-@REM Script originally generated with maven-appassembler-plugin and then adapted.
+@REM Copyright © 2017 The Diamongo authors. All rights reserved.
 @REM
-@REM ----------------------------------------------------------------------------
-@REM  Copyright 2001-2006 The Apache Software Foundation.
+@REM Licensed under the Apache License, Version 2.0 (the "License");
+@REM you may not use this file except in compliance with the License.
+@REM You may obtain a copy of the License at
 @REM
-@REM  Licensed under the Apache License, Version 2.0 (the "License");
-@REM  you may not use this file except in compliance with the License.
-@REM  You may obtain a copy of the License at
+@REM     http://www.apache.org/licenses/LICENSE-2.0
 @REM
-@REM       http://www.apache.org/licenses/LICENSE-2.0
+@REM Unless required by applicable law or agreed to in writing, software
+@REM distributed under the License is distributed on an "AS IS" BASIS,
+@REM WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@REM See the License for the specific language governing permissions and
+@REM limitations under the License.
 @REM
-@REM  Unless required by applicable law or agreed to in writing, software
-@REM  distributed under the License is distributed on an "AS IS" BASIS,
-@REM  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-@REM  See the License for the specific language governing permissions and
-@REM  limitations under the License.
-@REM ----------------------------------------------------------------------------
-@REM
-@REM   Copyright (c) 2001-2006 The Apache Software Foundation.  All rights
-@REM   reserved.
 
 @echo off
 
