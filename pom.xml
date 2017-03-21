@@ -87,8 +87,12 @@
                             <exclude>**/*.txt</exclude>
                             <exclude>.repository/**</exclude>
                             <exclude>README.adoc</exclude>
-                            <exclude>LICENSE</exclude>
-                            <exclude>NOTICE</exclude>
+                            <exclude>**/LICENSE</exclude>
+                            <exclude>**/NOTICE</exclude>
+                            <exclude>**/diamongo</exclude>
+                            <exclude>**/diamongo.bat</exclude>
+                            <exclude>**/diamongo.txt</exclude>
+                            <exclude>**/header.vm</exclude>
                             <exclude>**/*.log</exclude>
                         </excludes>
                         <mapping>
@@ -370,6 +374,26 @@
                                 <phase>generate-resources</phase>
                                 <goals>
                                     <goal>format</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>remove-license-headers</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-license</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>remove</goal>
                                 </goals>
                             </execution>
                         </executions>
