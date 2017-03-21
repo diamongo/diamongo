@@ -16,18 +16,13 @@
  */
 package io.github.diamongo.cli;
 
-import io.airlift.airline.Command;
-import io.github.diamongo.core.DiamongoConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class CliException extends RuntimeException {
 
-@Command(name = "migrate", description = "Perform database migration")
-public class MigrateCommand extends CliCommand implements Runnable {
+    public CliException(String message) {
+        super(message);
+    }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MigrateCommand.class);
-
-    @Override
-    protected void refineConfigBuilder(DiamongoConfig.Builder builder) {
-        // no-op
+    public CliException(String message, Throwable cause) {
+        super(message, cause);
     }
 }
