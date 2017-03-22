@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19735901_920d6b2c",
+        "filename": "core/src/main/java/io/github/diamongo/core/processor/ChecksumProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1010620
+      },
+      "writtenOn": "2017-03-22T22:59:53Z",
+      "side": 1,
+      "message": "Fix typo",
+      "range": {
+        "startLine": 103,
+        "startChar": 32,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "17ea45d66b1fbe12fccd6bae364959de3c41ae84",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fe9bea8_4d9358ce",
+        "filename": "core/src/main/java/io/github/diamongo/core/processor/MigrationWrappersCreator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010620
+      },
+      "writtenOn": "2017-03-22T22:59:53Z",
+      "side": 1,
+      "message": "Fix typo",
+      "range": {
+        "startLine": 35,
+        "startChar": 45,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "17ea45d66b1fbe12fccd6bae364959de3c41ae84",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
