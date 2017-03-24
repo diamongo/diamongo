@@ -17,11 +17,14 @@ package io.github.diamongo.integationtests;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.diamongo.core.migration.Migration;
+import io.github.diamongo.core.migration.MigrationWrapper;
 import io.github.diamongo.core.migration.MigrationWrappers;
+import io.github.diamongo.core.processor.JavaMigrations;
 import io.github.diamongo.integrationtests.V1_0__TestChangeSet;
 import io.github.diamongo.integrationtests.V2_0__TestChangeSet;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,7 +38,7 @@ public class CodeGenerationTest {
             V2_0__TestChangeSet.class, "2cf773673e833aa651a40ce3b20f7dd0582edd4ef9b722bec44986e6847913d5"
         );
 
-        MigrationWrappers wrappers = new MigrationWrappers();
+        MigrationWrappers wrappers = JavaMigrations.WRAPPERS;
         wrappers.stream()
                 .forEach(wrapper -> {
                     String expected = checksums.get(wrapper.getMigration().getClass());
@@ -46,7 +49,14 @@ public class CodeGenerationTest {
 
     @Test
     public void testWrappersSize() throws Exception {
-        MigrationWrappers wrappers = new MigrationWrappers();
+        MigrationWrappers wrappers = JavaMigrations.WRAPPERS;
+        assertThat(wrappers).hasSize(2);
+    }
+
+    @Test
+    public void testWrappersIterator() throws Exception {
+        Iterator<MigrationWrapper> wrappers = JavaMigrations.WRAPPERS.iterator();
         assertThat(wrappers).hasSize(2);
     }
 }
+

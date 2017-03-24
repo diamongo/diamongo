@@ -46,7 +46,7 @@ import static io.github.diamongo.core.util.ChecksumUtils.sha256;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public final class ChecksumProcessor extends AbstractProcessor {
 
-    private static final String MIGRATION_WRAPPERS_FQCN = "io.github.diamongo.core.migration.MigrationWrappers";
+    private static final String MIGRATION_WRAPPERS_FQCN = "io.github.diamongo.core.migration.JavaMigrations";
 
     /**
      * Processes all classes annotated with {@link MigrationMarker} and creates SHA-256 hashes from the corresponding
@@ -92,7 +92,7 @@ public final class ChecksumProcessor extends AbstractProcessor {
                         throw new UncheckedIOException(ex);
                     }
                 })
-                .reduce(new MigrationWrappersCreator(), MigrationWrappersCreator::addMigrationData, (c1, c2) -> null)
+                .reduce(new JavaMigrationsCreator(), JavaMigrationsCreator::addMigrationData, (c1, c2) -> null)
                 .create();
 
         try {

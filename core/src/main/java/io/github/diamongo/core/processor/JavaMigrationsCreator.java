@@ -20,45 +20,41 @@ import java.util.List;
 
 import static java.util.stream.Collectors.joining;
 
-final class MigrationWrappersCreator {
+final class JavaMigrationsCreator {
 
     private static final String CLASS_TEMPLATE =
-            "package io.github.diamongo.core.migration;\n" +
+            "package io.github.diamongo.core.processor;\n" +
                     "\n" +
-                    "import java.util.Iterator;\n" +
-                    "import java.util.LinkedList;\n" +
-                    "import java.util.List;\n" +
-                    "import java.util.stream.Stream;\n" +
-                    "import java.util.stream.StreamSupport;\n" +
+                    "import io.github.diamongo.core.migration.MigrationWrapper;\n" +
+                    "import io.github.diamongo.core.migration.MigrationWrappers;\n" +
+                    "import io.github.diamongo.core.migration.MigrationWrappers.Builder;\n" +
                     "\n" +
-                    "// Class auto-generated. Do not edit manually!\n" +
-                    "public final class MigrationWrappers implements Iterable<MigrationWrapper> {\n" +
-                    "    private final List<MigrationWrapper> list = new LinkedList<>();\n" +
+                    "public class JavaMigrations {\n" +
                     "\n" +
-                    "    public MigrationWrappers() {\n" +
+                    "    public static MigrationWrappers WRAPPERS = new Initializer().wrappers;\n" +
+                    "\n" +
+                    "    private static class Initializer {\n" +
+                    "        private MigrationWrappers wrappers;\n" +
+                    "\n" +
+                    "        private Initializer() {\n" +
+                    "            wrappers = new Builder()\n" +
                     "%s\n" +
-                    "    }\n" +
-                    "\n" +
-                    "    @Override\n" +
-                    "    public Iterator<MigrationWrapper> iterator() {\n" +
-                    "        return list.iterator();\n" +
-                    "    }\n" +
-                    "\n" +
-                    "    public Stream<MigrationWrapper> stream() {\n" +
-                    "        return StreamSupport.stream(spliterator(), false);\n" +
+                    "                .build();\n" +
+                    "        }\n" +
                     "    }\n" +
                     "}\n";
 
-    private static final String ADD_WRAPPER_TEMPLATE = "        list.add(new MigrationWrapper(new %s(), \"%s\"));";
+    private static final String ADD_WRAPPER_TEMPLATE =
+            "                .addMigrationWrapper(new MigrationWrapper(new %s(), \"%s\"))";
 
     private List<MigrationData> migrationData = new LinkedList<>();
 
-    public MigrationWrappersCreator addMigrationData(MigrationData migrationData) {
+    JavaMigrationsCreator addMigrationData(MigrationData migrationData) {
         this.migrationData.add(migrationData);
         return this;
     }
 
-    public String create() {
+    String create() {
         String joinedClassNames = migrationData.stream()
                 .map(holder -> String.format(ADD_WRAPPER_TEMPLATE, holder.source, holder.checksum))
                 .collect(joining("\n"));
