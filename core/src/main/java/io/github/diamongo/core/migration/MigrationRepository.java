@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.core.mongo;
+package io.github.diamongo.core.migration;
 
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
@@ -24,22 +24,29 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.ZonedDateTime;
 
 import static com.mongodb.ErrorCategory.DUPLICATE_KEY;
 import static com.mongodb.client.model.Filters.eq;
+import static io.github.diamongo.core.util.ValidationUtils.checkNotNull;
 
 /**
  * Repository class for handling any MongoDB access.
  */
-public class MongoRepository {
-
+public class MigrationRepository {
     static final String CHANGELOG_COLLECTION = "diamongoChangeLog";
     static final String CHANGELOG_LOCK_COLLECTION = "diamongoChangeLog.lock";
+    // ObjectId must have 12 bytes
     static final ObjectId LOCK_ID = new ObjectId(new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
     static final Bson ID_FILTER = eq("_id", LOCK_ID);
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoRepository.class);
+    private static final String HOSTNAME = getHostName();
+    private static final String PID = getPid();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MigrationRepository.class);
+
     private final MongoDatabase database;
 
     /**
@@ -47,8 +54,21 @@ public class MongoRepository {
      *
      * @param database provides MongoDB access
      */
-    public MongoRepository(MongoDatabase database) {
-        this.database = database;
+    public MigrationRepository(MongoDatabase database) {
+        this.database = checkNotNull(database, "'mongoDatabase' must not be null");
+    }
+
+    private static String getHostName() {
+        try {
+            return InetAddress.getLocalHost().getCanonicalHostName();
+        } catch (UnknownHostException e) {
+            return "unknown";
+        }
+    }
+
+    private static String getPid() {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        return name.split("@")[0];
     }
 
     /**
@@ -61,7 +81,10 @@ public class MongoRepository {
         MongoCollection<Document> collection = database.getCollection(CHANGELOG_LOCK_COLLECTION);
 
         try {
-            Document lock = new Document("_id", LOCK_ID).append("timestamp", ZonedDateTime.now());
+            Document lock = new Document("_id", LOCK_ID)
+                    .append("timestamp", ZonedDateTime.now())
+                    .append("hostname", HOSTNAME)
+                    .append("pid", PID);
             collection.insertOne(lock);
             LOGGER.info("Lock successfully acquired: {}", lock);
             return true;
@@ -102,5 +125,13 @@ public class MongoRepository {
         }
 
         return false;
+    }
+
+    public boolean runMigration(MigrationWrappers migrationWrappers) {
+        return withLock(() -> {
+            migrationWrappers.stream()
+                    .map(MigrationWrapper::getMigration)
+                    .forEach(migration -> migration.migrate(database));
+        });
     }
 }

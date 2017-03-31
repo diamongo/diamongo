@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.core;
+package io.github.diamongo.core.migration;
 
-public class DiamongoTest {
+/**
+ * Interface for generated classes.
+ */
+public interface Migrations {
 
+    MigrationWrappers createWrappers();
 }
