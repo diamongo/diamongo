@@ -34,6 +34,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
+import static io.github.diamongo.core.migration.MigrationConstants.JAVA_MIGRATIONS_FQCN;
 import static io.github.diamongo.core.util.ChecksumUtils.normalize;
 import static io.github.diamongo.core.util.ChecksumUtils.sha256;
 
@@ -46,8 +47,6 @@ import static io.github.diamongo.core.util.ChecksumUtils.sha256;
 @SupportedAnnotationTypes("io.github.diamongo.core.migration.MigrationMarker")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public final class ChecksumProcessor extends AbstractProcessor {
-
-    private static final String JAVA_MIGRATIONS_FQCN = "io.github.diamongo.core.migration.JavaMigrations";
 
     /**
      * Processes all classes annotated with {@link MigrationMarker} and creates SHA-256 hashes from the corresponding

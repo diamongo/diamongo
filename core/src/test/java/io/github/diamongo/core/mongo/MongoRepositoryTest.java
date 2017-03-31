@@ -35,7 +35,6 @@ import static io.github.diamongo.core.mongo.MongoRepository.LOCK_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MongoRepositoryTest {
-
     private Document lock = new Document("_id", LOCK_ID);
 
     @Mocked

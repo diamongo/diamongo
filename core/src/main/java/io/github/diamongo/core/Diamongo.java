@@ -15,21 +15,37 @@
  */
 package io.github.diamongo.core;
 
+import io.github.diamongo.core.migration.MigrationService;
+import io.github.diamongo.core.migration.MigrationWrappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Entrypoint for Diamongo.
  */
 public final class Diamongo {
-    private final DiamongoConfig config;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Diamongo.class);
 
-    public Diamongo(DiamongoConfig config) {
-        this.config = config;
+    private final MigrationService migrationService;
+
+    Diamongo(MigrationService migrationService) {
+        this.migrationService = migrationService;
     }
 
     /**
      * Starts the database migration.
      */
     public void migrate() {
-        // NO-OP
+        MigrationWrappers migrationWrappers = migrationService.loadMigrationWrappers();
+        migrationService.validateMigrationWrappers(migrationWrappers);
+
+        // TODO
+        // load existing migration
+        // validate checksums
+        // compute migrations to run
+        // print status
+
+        migrationService.runMigration(migrationWrappers);
     }
 
     /**

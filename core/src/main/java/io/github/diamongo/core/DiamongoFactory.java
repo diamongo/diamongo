@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.cli;
+package io.github.diamongo.core;
 
-import io.airlift.airline.Command;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mongodb.MongoClient;
+import io.github.diamongo.core.config.DiamongoConfig;
 
-@Command(name = "validate", description = "Validate changesets")
-public class ValidateCommand extends CliCommand implements Runnable {
+public interface DiamongoFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
+    Diamongo create(String propertiesFile);
 
+    Diamongo create(DiamongoConfig config);
 
+    Diamongo create(MongoClient mongoClient, DiamongoConfig config);
 }
