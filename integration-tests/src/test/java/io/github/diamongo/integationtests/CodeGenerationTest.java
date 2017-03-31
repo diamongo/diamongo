@@ -16,10 +16,10 @@
 package io.github.diamongo.integationtests;
 
 import com.google.common.collect.ImmutableMap;
+import io.github.diamongo.core.migration.JavaMigrations;
 import io.github.diamongo.core.migration.Migration;
 import io.github.diamongo.core.migration.MigrationWrapper;
 import io.github.diamongo.core.migration.MigrationWrappers;
-import io.github.diamongo.core.processor.JavaMigrations;
 import io.github.diamongo.integrationtests.V1_0__TestChangeSet;
 import io.github.diamongo.integrationtests.V2_0__TestChangeSet;
 import org.junit.Test;
