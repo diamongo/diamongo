@@ -38,15 +38,16 @@ import static io.github.diamongo.core.util.ChecksumUtils.normalize;
 import static io.github.diamongo.core.util.ChecksumUtils.sha256;
 
 /**
- * Annotation processor that generates the class {@code io.github.diamongo.core.migration.MigrationWrappers} which will
- * contain {@link io.github.diamongo.core.migration.MigrationWrapper} instances for all classes annotated with
+ * Annotation processor that generates the class {@code io.github.diamongo.core.migration.JavaMigrations} which will
+ * contain a {@link io.github.diamongo.core.migration.MigrationWrappers} instance holding
+ * {@link io.github.diamongo.core.migration.MigrationWrapper} instances for all classes annotated with
  * {@link MigrationMarker}.
  */
 @SupportedAnnotationTypes("io.github.diamongo.core.migration.MigrationMarker")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public final class ChecksumProcessor extends AbstractProcessor {
 
-    private static final String MIGRATION_WRAPPERS_FQCN = "io.github.diamongo.core.migration.JavaMigrations";
+    private static final String JAVA_MIGRATIONS_FQCN = "io.github.diamongo.core.migration.JavaMigrations";
 
     /**
      * Processes all classes annotated with {@link MigrationMarker} and creates SHA-256 hashes from the corresponding
@@ -66,7 +67,7 @@ public final class ChecksumProcessor extends AbstractProcessor {
 
         Filer filer = processingEnv.getFiler();
 
-        String migrationWrappersSource = annotations.stream()
+        String javaMigrationsSource = annotations.stream()
                 .flatMap(elem -> roundEnv.getElementsAnnotatedWith(elem).stream())
                 .map(elem -> {
                     try {
@@ -96,13 +97,13 @@ public final class ChecksumProcessor extends AbstractProcessor {
                 .create();
 
         try {
-            System.out.printf("Writing class: %s%n", MIGRATION_WRAPPERS_FQCN);
-            FileObject migrationWrappersClassObject = filer.createSourceFile(MIGRATION_WRAPPERS_FQCN);
-            try (Writer writer = migrationWrappersClassObject.openWriter()) {
-                writer.append(migrationWrappersSource);
+            System.out.printf("Writing class: %s%n", JAVA_MIGRATIONS_FQCN);
+            FileObject javaMigrationsFileObject = filer.createSourceFile(JAVA_MIGRATIONS_FQCN);
+            try (Writer writer = javaMigrationsFileObject.openWriter()) {
+                writer.append(javaMigrationsSource);
             }
         } catch (IOException ex) {
-            System.err.println("Cannot create source file: " + MIGRATION_WRAPPERS_FQCN);
+            System.err.println("Cannot create source file: " + JAVA_MIGRATIONS_FQCN);
             ex.printStackTrace();
         }
 

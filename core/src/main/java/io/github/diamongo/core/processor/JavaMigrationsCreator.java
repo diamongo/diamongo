@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.joining;
 
 final class JavaMigrationsCreator {
 
-    private static final String CLASS_TEMPLATE =
+    private static final String JAVA_MIGRATIONS_CLASS_TEMPLATE =
             "package io.github.diamongo.core.migration;\n" +
                     "\n" +
                     "import io.github.diamongo.core.migration.MigrationWrapper;\n" +
@@ -58,6 +58,6 @@ final class JavaMigrationsCreator {
         String joinedClassNames = migrationData.stream()
                 .map(holder -> String.format(ADD_WRAPPER_TEMPLATE, holder.source, holder.checksum))
                 .collect(joining("\n"));
-        return String.format(CLASS_TEMPLATE, joinedClassNames);
+        return String.format(JAVA_MIGRATIONS_CLASS_TEMPLATE, joinedClassNames);
     }
 }
