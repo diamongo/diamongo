@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.cli;
+package io.github.diamongo.integationtests;
 
-import io.airlift.airline.Command;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mongodb.MongoClient;
+import io.github.diamongo.cli.DiamongoCli;
+import mockit.Mocked;
+import org.junit.Test;
 
-@Command(name = "validate", description = "Validate changesets")
-public class ValidateCommand extends CliCommand implements Runnable {
+public class DiamongoTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
+    @Mocked
+    private MongoClient mongoClient;
 
-
+    @Test
+    public void testMigrate() {
+        DiamongoCli.main("migrate", "-d", "foo");
+    }
 }

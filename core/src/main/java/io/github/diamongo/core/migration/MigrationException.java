@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.cli;
+package io.github.diamongo.core.migration;
 
-import io.airlift.airline.Command;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+/**
+ * Exception related to migrations.
+ */
+public class MigrationException extends RuntimeException {
 
-@Command(name = "validate", description = "Validate changesets")
-public class ValidateCommand extends CliCommand implements Runnable {
+    public MigrationException(String message) {
+        super(message);
+    }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
-
-
+    public MigrationException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

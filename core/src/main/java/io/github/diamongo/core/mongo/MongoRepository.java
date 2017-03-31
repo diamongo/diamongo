@@ -18,6 +18,8 @@ package io.github.diamongo.core.mongo;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import io.github.diamongo.core.migration.MigrationWrapper;
+import io.github.diamongo.core.migration.MigrationWrappers;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -102,5 +104,13 @@ public class MongoRepository {
         }
 
         return false;
+    }
+
+    public boolean runMigration(MigrationWrappers migrationWrappers) {
+        return withLock(() -> {
+            migrationWrappers.stream()
+                    .map(MigrationWrapper::getMigration)
+                    .forEach(migration -> migration.migrate(database));
+        });
     }
 }

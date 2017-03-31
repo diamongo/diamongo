@@ -18,6 +18,7 @@ package io.github.diamongo.cli;
 import com.google.common.io.Resources;
 import io.airlift.airline.Cli;
 import io.airlift.airline.Help;
+import io.airlift.airline.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,13 +46,20 @@ public class DiamongoCli {
             LOGGER.debug("Executing command: {}...", command);
             command.run();
             LOGGER.debug("Finished executing command: {}", command);
+        } catch (ParseException ex) {
+            LOGGER.error(ex.getMessage());
+            showHelpAndExit();
         } catch (Throwable th) {
-            LOGGER.error(th.getMessage());
-            LOGGER.info("");
-            Runnable command = parseCommandLine("help");
-            command.run();
-            System.exit(1);
+            LOGGER.error(th.getMessage(), th);
+            showHelpAndExit();
         }
+    }
+
+    private static void showHelpAndExit() {
+        LOGGER.info("");
+        Runnable command = parseCommandLine("help");
+        command.run();
+        System.exit(1);
     }
 
     private static Runnable parseCommandLine(final String... args) {

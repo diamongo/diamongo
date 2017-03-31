@@ -31,6 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CodeGenerationTest {
 
+    private MigrationWrappers wrappers = new JavaMigrations().createWrappers();
+
     @Test
     public void testSha256Correct() throws Exception {
         Map<Class<? extends Migration>, String> checksums = ImmutableMap.of(
@@ -38,7 +40,6 @@ public class CodeGenerationTest {
             V2_0__TestChangeSet.class, "2cf773673e833aa651a40ce3b20f7dd0582edd4ef9b722bec44986e6847913d5"
         );
 
-        MigrationWrappers wrappers = JavaMigrations.WRAPPERS;
         wrappers.stream()
                 .forEach(wrapper -> {
                     String expected = checksums.get(wrapper.getMigration().getClass());
@@ -47,16 +48,15 @@ public class CodeGenerationTest {
                 });
     }
 
+
     @Test
     public void testWrappersSize() throws Exception {
-        MigrationWrappers wrappers = JavaMigrations.WRAPPERS;
         assertThat(wrappers).hasSize(2);
     }
 
     @Test
     public void testWrappersIterator() throws Exception {
-        Iterator<MigrationWrapper> wrappers = JavaMigrations.WRAPPERS.iterator();
-        assertThat(wrappers).hasSize(2);
+        Iterator<MigrationWrapper> wrappersIter = wrappers.iterator();
+        assertThat(wrappersIter).hasSize(2);
     }
 }
-
