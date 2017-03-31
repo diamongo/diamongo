@@ -15,15 +15,21 @@
  */
 package io.github.diamongo.cli;
 
+import com.mongodb.MongoClientURI;
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
+import io.github.diamongo.core.DefaultDiamongoFactory;
 import io.github.diamongo.core.Diamongo;
-import io.github.diamongo.core.DiamongoConfig;
+import io.github.diamongo.core.DiamongoFactory;
+import io.github.diamongo.core.config.DiamongoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Base class for CLI commands.
@@ -32,8 +38,8 @@ abstract class CliCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CliCommand.class);
 
-    @Option(name = {"--url"}, description = "The MongoDB url")
-    public String url;
+    @Option(name = {"--mongo-mongoUri", "-uri"}, description = "The MongoDB mongoUri")
+    public String mongoUri = "mongodb://localhost";
 
     @Option(name = {"--user", "-u"}, description = "The MongoDB user")
     public String user;
@@ -41,44 +47,32 @@ abstract class CliCommand {
     @Option(name = {"--password", "-p"}, description = "The MongoDB password")
     public String password;
 
-    @Option(name = {"--classpath", "-cp"}, description = "Additional classpath for migrations")
-    public String classpath;
+    @Option(name = {"--database", "-d"}, description = "The MongoDB database", required = true)
+    public String database;
 
-    @Option(name = {"--migrations", "-m"}, description = "Directory or package where migrations are searched")
-    public String migrations;
+    @Option(name = {"--classpath", "-cp"}, description = "Additional classpath for Java migrations")
+    public String additionalClasspath;
 
-
-    private DiamongoConfig.Builder initConfigBuilder() {
-        return new DiamongoConfig.Builder()
-                .url(url)
-                .classpath(classpath)
-                .user(user)
-                .password(password)
-                .migrations(migrations);
-    }
-
-    /**
-     * Override this method in order to refine a pre-populated builder with command-specific options.
-     *
-     * @param builder a builder pre-populated with common options
-     */
-    protected abstract void refineConfigBuilder(DiamongoConfig.Builder builder);
+    @Option(name = {"--javascriptDirs", "-j"}, arity = Integer.MAX_VALUE,
+            description = "Javascript migration directories")
+    public List<String> javascriptDirs = new LinkedList<>();
 
     public final void run() {
-        LOGGER.debug("Initializing Diamongo configuration...");
-        DiamongoConfig.Builder builder = initConfigBuilder();
-        refineConfigBuilder(builder);
-        DiamongoConfig config = builder.build();
-
         LOGGER.debug("Identifying command to run...");
         Command command = getClass().getAnnotation(Command.class);
         String methodName = command.name();
 
-        Diamongo diamongo = new Diamongo(config);
         try {
+            DiamongoConfig.Builder builder = initConfigBuilder();
+            refineConfigBuilder(builder);
+
+            DiamongoFactory factory = new DefaultDiamongoFactory();
+            Diamongo diamongo = factory.create(builder.build());
             LOGGER.debug("Invoking command: {}", methodName);
             Method method = Diamongo.class.getMethod(methodName);
             method.invoke(diamongo);
+        } catch (MalformedURLException ex) {
+            throw new CliException("Invalid additional classpath mongoUri", ex);
         } catch (IllegalAccessException ex) {
             throw new CliException("Error accessing method: " + methodName, ex);
         } catch (InvocationTargetException ex) {
@@ -86,5 +80,23 @@ abstract class CliCommand {
         } catch (NoSuchMethodException ex) {
             throw new CliException("Invalid command. Method not found: " + methodName, ex);
         }
+    }
+
+    /**
+     * Override this method in order to refine a pre-populated builder with command-specific options.
+     *
+     * @param builder a builder pre-populated with common options
+     */
+    protected void refineConfigBuilder(DiamongoConfig.Builder builder) {
+        // no-op
+    }
+
+    private DiamongoConfig.Builder initConfigBuilder() throws MalformedURLException {
+        DiamongoConfig.Builder builder = new DiamongoConfig.Builder()
+                .mongoUri(new MongoClientURI(mongoUri))
+                .database(database)
+                .additionalClasspath(additionalClasspath);
+        javascriptDirs.forEach(builder::addJavascriptDir);
+        return builder;
     }
 }

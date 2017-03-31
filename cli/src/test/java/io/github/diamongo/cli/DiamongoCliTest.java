@@ -15,6 +15,7 @@
  */
 package io.github.diamongo.cli;
 
+import io.github.diamongo.core.migration.MigrationService;
 import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
@@ -44,10 +45,13 @@ public class DiamongoCliTest {
     @Mocked
     private Logger mockLogger;
 
+    @Mocked
+    private MigrationService service;
+
     @Parameters
     public static Collection<Object[]> data() {
         return asList(new Object[][] {
-                {"validate", ValidateCommand.class },
+                {"validate", ValidateCommand.class},
                 {"status", StatusCommand.class},
                 {"migrate", MigrateCommand.class},
                 {"clear", ClearCommand.class}
@@ -61,12 +65,12 @@ public class DiamongoCliTest {
 
         new Expectations(commandClass) {};
 
-        DiamongoCli.main(commandName, "--url", "mongodb://foo", "--migrations", "bar");
+        DiamongoCli.main(commandName, "-uri", "mongodb://foo", "-d", "foo");
 
         new VerificationsInOrder() {
             {
-                mockLogger.debug(withSubstring("Executing"), withInstanceOf(commandClass));
                 command.run();
+                mockLogger.debug("Identifying command to run...");
                 mockLogger.debug("Invoking command: {}", commandName);
                 mockLogger.debug(withSubstring("Finished"), withInstanceOf(commandClass));
             }

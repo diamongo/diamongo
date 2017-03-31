@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.cli;
+package io.github.diamongo.core.config;
 
-import io.airlift.airline.Command;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class ConfigException extends RuntimeException {
+    public ConfigException(String message) {
+        super(message);
+    }
 
-@Command(name = "validate", description = "Validate changesets")
-public class ValidateCommand extends CliCommand implements Runnable {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ValidateCommand.class);
-
-
+    public ConfigException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
