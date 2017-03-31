@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.integationtests;
+package io.github.diamongo.integrationtests;
 
 import com.google.common.collect.ImmutableMap;
+import io.github.diamongo.core.migration.JavaMigrations;
 import io.github.diamongo.core.migration.Migration;
 import io.github.diamongo.core.migration.MigrationWrapper;
 import io.github.diamongo.core.migration.MigrationWrappers;
-import io.github.diamongo.core.processor.JavaMigrations;
-import io.github.diamongo.integrationtests.V1_0__TestChangeSet;
-import io.github.diamongo.integrationtests.V2_0__TestChangeSet;
 import org.junit.Test;
 
 import java.util.Iterator;

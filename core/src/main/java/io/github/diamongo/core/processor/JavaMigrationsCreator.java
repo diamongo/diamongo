@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.joining;
 final class JavaMigrationsCreator {
 
     private static final String CLASS_TEMPLATE =
-            "package io.github.diamongo.core.processor;\n" +
+            "package io.github.diamongo.core.migration;\n" +
                     "\n" +
                     "import io.github.diamongo.core.migration.MigrationWrapper;\n" +
                     "import io.github.diamongo.core.migration.MigrationWrappers;\n" +
@@ -47,7 +47,7 @@ final class JavaMigrationsCreator {
     private static final String ADD_WRAPPER_TEMPLATE =
             "                .addMigrationWrapper(new MigrationWrapper(new %s(), \"%s\"))";
 
-    private List<MigrationData> migrationData = new LinkedList<>();
+    private final List<MigrationData> migrationData = new LinkedList<>();
 
     JavaMigrationsCreator addMigrationData(MigrationData migrationData) {
         this.migrationData.add(migrationData);
