@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.diamongo.core.mongo;
+package io.github.diamongo.core.migration;
 
 import com.mongodb.MongoWriteException;
 import com.mongodb.ServerAddress;
@@ -30,12 +30,11 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
 
-import static io.github.diamongo.core.mongo.MongoRepository.CHANGELOG_LOCK_COLLECTION;
-import static io.github.diamongo.core.mongo.MongoRepository.LOCK_ID;
+import static io.github.diamongo.core.migration.MigrationRepository.CHANGELOG_LOCK_COLLECTION;
+import static io.github.diamongo.core.migration.MigrationRepository.LOCK_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MongoRepositoryTest {
-
+public class MigrationRepositoryTest {
     private Document lock = new Document("_id", LOCK_ID);
 
     @Mocked
@@ -53,7 +52,7 @@ public class MongoRepositoryTest {
             }
         };
 
-        MongoRepository repo = new MongoRepository(database);
+        MigrationRepository repo = new MigrationRepository(database);
         boolean actual = repo.tryLock();
         assertThat(actual).isTrue();
 
@@ -82,7 +81,7 @@ public class MongoRepositoryTest {
             }
         };
 
-        MongoRepository repo = new MongoRepository(database);
+        MigrationRepository repo = new MigrationRepository(database);
         boolean actual = repo.tryLock();
         assertThat(actual).isFalse();
 
@@ -95,7 +94,7 @@ public class MongoRepositoryTest {
 
     @Test
     public void testReleaseLock() throws Exception {
-        MongoRepository repo = new MongoRepository(database);
+        MigrationRepository repo = new MigrationRepository(database);
         repo.releaseLock();
 
         new Verifications() {
@@ -107,7 +106,7 @@ public class MongoRepositoryTest {
 
     @Test
     public void testWithLock() throws Exception {
-        MongoRepository repo = new MongoRepository(database);
+        MigrationRepository repo = new MigrationRepository(database);
 
         Runnable runnable = () -> {};
         new Expectations(runnable) {};
@@ -122,7 +121,7 @@ public class MongoRepositoryTest {
 
     @Test
     public void testWithLockFailed() throws Exception {
-        MongoRepository repo = new MongoRepository(database);
+        MigrationRepository repo = new MigrationRepository(database);
 
         new Expectations(repo) {
             {
