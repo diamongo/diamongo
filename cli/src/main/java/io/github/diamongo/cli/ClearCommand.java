@@ -16,7 +16,7 @@
 package io.github.diamongo.cli;
 
 import io.airlift.airline.Command;
-import io.github.diamongo.core.DiamongoConfig;
+import io.github.diamongo.core.config.DiamongoConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +25,4 @@ public class ClearCommand extends CliCommand implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClearCommand.class);
 
-    @Override
-    protected void refineConfigBuilder(DiamongoConfig.Builder builder) {
-        // no-op
-    }
 }

@@ -18,29 +18,22 @@ package io.github.diamongo.core.processor;
 import java.util.LinkedList;
 import java.util.List;
 
+import static io.github.diamongo.core.migration.MigrationConstants.JAVA_MIGRATIONS_CN;
+import static io.github.diamongo.core.migration.MigrationConstants.JAVA_MIGRATIONS_PKG;
 import static java.util.stream.Collectors.joining;
 
 final class JavaMigrationsCreator {
 
     private static final String JAVA_MIGRATIONS_CLASS_TEMPLATE =
-            "package io.github.diamongo.core.migration;\n" +
+            "package %s;\n" +
                     "\n" +
-                    "import io.github.diamongo.core.migration.MigrationWrapper;\n" +
-                    "import io.github.diamongo.core.migration.MigrationWrappers;\n" +
-                    "import io.github.diamongo.core.migration.MigrationWrappers.Builder;\n" +
+                    "public class %s implements Migrations {\n" +
                     "\n" +
-                    "public class JavaMigrations {\n" +
-                    "\n" +
-                    "    public static MigrationWrappers WRAPPERS = new Initializer().wrappers;\n" +
-                    "\n" +
-                    "    private static class Initializer {\n" +
-                    "        private MigrationWrappers wrappers;\n" +
-                    "\n" +
-                    "        private Initializer() {\n" +
-                    "            wrappers = new Builder()\n" +
+                    "    @Override\n" +
+                    "    public MigrationWrappers createWrappers() {\n" +
+                    "        return new MigrationWrappers.Builder()\n" +
                     "%s\n" +
                     "                .build();\n" +
-                    "        }\n" +
                     "    }\n" +
                     "}\n";
 
@@ -58,6 +51,6 @@ final class JavaMigrationsCreator {
         String joinedClassNames = migrationData.stream()
                 .map(holder -> String.format(ADD_WRAPPER_TEMPLATE, holder.source, holder.checksum))
                 .collect(joining("\n"));
-        return String.format(JAVA_MIGRATIONS_CLASS_TEMPLATE, joinedClassNames);
+        return String.format(JAVA_MIGRATIONS_CLASS_TEMPLATE, JAVA_MIGRATIONS_PKG, JAVA_MIGRATIONS_CN, joinedClassNames);
     }
 }

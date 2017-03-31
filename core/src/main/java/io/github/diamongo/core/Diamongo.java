@@ -15,21 +15,29 @@
  */
 package io.github.diamongo.core;
 
+import io.github.diamongo.core.migration.MigrationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static io.github.diamongo.core.util.ValidationUtils.checkNotNull;
+
 /**
  * Entrypoint for Diamongo.
  */
 public final class Diamongo {
-    private final DiamongoConfig config;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Diamongo.class);
 
-    public Diamongo(DiamongoConfig config) {
-        this.config = config;
+    private final MigrationService migrationService;
+
+    Diamongo(MigrationService migrationService) {
+        this.migrationService = checkNotNull(migrationService, "'migrationService' must not be null");
     }
 
     /**
      * Starts the database migration.
      */
     public void migrate() {
-        // NO-OP
+        migrationService.migrate();
     }
 
     /**
