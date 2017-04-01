@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0b71459_de942784",
+        "filename": "integration-tests/src/test/java/io/github/diamongo/integationtests/CodeGenerationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010620
+      },
+      "writtenOn": "2017-04-01T20:11:04Z",
+      "side": 1,
+      "message": "Missing \u0027r\u0027 -\u003e integrationtests",
+      "range": {
+        "startLine": 16,
+        "startChar": 27,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "0e63f5f344cdf512f8267f75814a55dd8ed48bf4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
